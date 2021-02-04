@@ -16,7 +16,7 @@ public class Board {
 		
 	}
 	
-	public int getRow() {
+	public int getRows() {
 		return rows;
 	}
 	
@@ -58,6 +58,7 @@ public class Board {
 		return null;
 	}
 	Piece aux = piece(position);
+	aux.position = null;
 	pieces[position.getRow()][position.getColumn()] = null;
 	return aux;
 	
