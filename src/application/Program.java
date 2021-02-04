@@ -1,7 +1,9 @@
 package application;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import chess.ChessException;
 import chess.ChessMatch;
 import chess.ChessPiece;
 import chess.ChessPosition;
@@ -10,26 +12,42 @@ public class Program {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		
-		ChessMatch chessMatch = new ChessMatch();
-		
-		while(true) {
-		UI.printBoard(chessMatch.getPieces());
-		System.out.println();
-		System.out.print("Source: ");
-		ChessPosition source = UI.readChessPosition(sc);
-		
-		System.out.println();
-		System.out.print("Target: ");
-		ChessPosition target = UI.readChessPosition(sc);
-		
-		ChessPiece capturedPiece = chessMatch.performChessMove(source, target);
-		
-		
-		
 
-		
-	
+		ChessMatch chessMatch = new ChessMatch();
+
+		while (true) {
+			try {
+				UI.clearScreen();
+				UI.printBoard(chessMatch.getPieces());
+				System.out.println();
+				System.out.print("Source: ");
+				ChessPosition source = UI.readChessPosition(sc);
+
+				System.out.println();
+				System.out.print("Target: ");
+				ChessPosition target = UI.readChessPosition(sc);
+
+				ChessPiece capturedPiece = chessMatch.performChessMove(source, target);
+			}
+			catch (ChessException e) {
+				System.out.println(e.getMessage());
+				sc.nextLine();
+
+			} 
+			catch (InputMismatchException e) {
+				System.out.println(e.getMessage());
+				sc.nextLine();
+
+			}
+
+			/*
+			 * if I placed ==== sc.close(); ===== program were launched to (Source:
+			 * Exception in thread "main" java.util.InputMismatchException: Error reading
+			 * ChessPosition. Valid values are from a1 to h8. at
+			 * application.UI.readChessPosition(UI.java:40) at
+			 * application.Program.main(Program.java:20)... )
+			 */
+
 		}
 	}
 
